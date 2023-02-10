@@ -43,12 +43,6 @@ export default {
         shows.value = data.data
         // console.log(shows.value)
       })
-      fetch(`https://api.jikan.moe/v4/watch/episodes`)
-      .then(response => response.json())
-      .then(object => {
-        randoms.value = object.data
-        console.log(randoms.value)
-      })
     })
     return {
       shows,
