@@ -25,16 +25,19 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'poppins', sans-serif;
+  /* background-color: #e6e6e6; */
 }
 header {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 10px;
+  position: relative;
 }
 .top {
   position: relative;
-  max-width: 1000px;
+  max-width: 1200px;
   width: 100%;
   display: flex;
   align-items: center;
