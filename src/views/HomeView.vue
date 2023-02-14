@@ -7,21 +7,14 @@
           <img :src="anime.images.webp.image_url" :alt="anime.title">
           <h3>{{ anime.title }}</h3>
           <h4>{{ anime.score }}</h4>
+          <!-- <button @submit.prevent="goWatch()" > Watch Now </button> -->
+          <router-link :to="streamLink"> watch Now </router-link>
         </li>
       </ul>
       
     </div>
     <div class="random">
       <ul class="randomAnime">
-        <!-- <li>
-          <img :src="randoms.images.webp.large_image_url" :alt="randoms.title">
-          <div class="randomsInfo">
-            <h3>{{ randoms.title }}</h3>
-            <h4>{{ randoms.rating }}</h4>
-            <h4>{{ randoms.score }}</h4>
-            <p>{{ randoms.synopsis }}</p>
-          </div>
-        </li> -->
       </ul>
     </div>
   </main>
@@ -35,18 +28,64 @@ export default {
   setup() {
     const shows = ref([])
     const randoms = ref([])
+    const streamLink = ref('')
+    const streamID = ref('')
+
+    // onBeforeMount(() => {
+    //   fetch(`https://api.jikan.moe/v4/top/anime`)
+    //   .then(response => response.json())
+    //   .then(data => {
+    //     shows.value = data.data
+    //     console.log(shows.value)
+    //     shows.value.forEach(show => {
+    //       // console.log(show.mal_id);
+    //       streamID.value = show.mal_id
+    //     });
+        
+    //   })
+    // })
+    // const goWatch = () => {
+    //   fetch(`https://api.jikan.moe/v4/anime/${streamID.value}/streaming`)
+    //   .then(response => response.json())
+    //   .then(data => {
+    //     streamLink.value = data.data[1].url
+    //     console.log(streamLink.value)
+    //   })
+    // }
 
     onBeforeMount(() => {
       fetch(`https://api.jikan.moe/v4/top/anime`)
-      .then(response => response.json())
-      .then(data => {
-        shows.value = data.data
-        // console.log(shows.value)
-      })
-    })
+        .then(response => response.json())
+        .then(data => {
+          shows.value = data.data
+          console.log(shows.value)
+          const malIds = shows.value.map(show => show.mal_id);
+          streamID.value = malIds;
+        });
+    });
+    
+    const goWatch = () => {
+      fetch(`https://api.jikan.moe/v4/anime/${streamID.value}/streaming`)
+        .then(response => response.json())
+        .then(data => {
+          const streamingService = 'Crunchyroll'; // replace with the desired service
+          const streamData = data.data.find(service => service.service === streamingService);
+          if (streamData) {
+            streamLink.value = streamData.url;
+            console.log(streamLink.value);
+          } else {
+            console.log(`Streaming link not found for ${streamingService}`);
+          }
+        });
+    };
+    
+
     return {
       shows,
-      randoms
+      randoms,
+      goWatch,
+      streamID,
+      streamLink
     }
   }
 }
@@ -67,7 +106,7 @@ export default {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
+
 }
 .topAnime h2 {
   padding: 5px 10px;

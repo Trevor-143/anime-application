@@ -35,6 +35,9 @@ header {
   margin-top: 10px;
   position: relative;
 }
+#app {
+  background: #000000;
+}
 .top {
   position: relative;
   max-width: 1200px;
@@ -54,9 +57,9 @@ header {
 .inside {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   position: absolute;
+  padding-top: 10%;
+  
   background-color: rgba(0, 0, 0, 0.7);
   width: 100%;
   height: 100%;
