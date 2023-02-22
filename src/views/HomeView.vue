@@ -5,16 +5,23 @@
       <ul class="topAnimeSingles">
         <li v-for="anime in shows" :key="anime.mal_id">
           <img :src="anime.images.webp.image_url" :alt="anime.title">
-          <h3>{{ anime.title }}</h3>
-          <h4>{{ anime.score }}</h4>
-          <!-- <button @submit.prevent="goWatch()" > Watch Now </button> -->
-          <router-link :to="streamLink"> watch Now </router-link>
+          <div class="info">
+            <h3>{{ anime.title }}</h3>
+            <h4>{{ anime.score }}</h4>
+          </div>
         </li>
       </ul>
-      
     </div>
-    <div class="random">
-      <ul class="randomAnime">
+    <div class="topAnime">
+      <h2>Upcoming Anime Seasons</h2>
+      <ul class="topAnimeSingles">
+        <li v-for="anime in seasons" :key="anime.mal_id">
+          <img :src="anime.images.webp.image_url" :alt="anime.title">
+          <div class="info">
+            <h3>{{ anime.title }}</h3>
+            <h4>{{ anime.score }}</h4>
+          </div>
+        </li>
       </ul>
     </div>
   </main>
@@ -28,64 +35,28 @@ export default {
   setup() {
     const shows = ref([])
     const randoms = ref([])
-    const streamLink = ref('')
-    const streamID = ref('')
-
-    // onBeforeMount(() => {
-    //   fetch(`https://api.jikan.moe/v4/top/anime`)
-    //   .then(response => response.json())
-    //   .then(data => {
-    //     shows.value = data.data
-    //     console.log(shows.value)
-    //     shows.value.forEach(show => {
-    //       // console.log(show.mal_id);
-    //       streamID.value = show.mal_id
-    //     });
-        
-    //   })
-    // })
-    // const goWatch = () => {
-    //   fetch(`https://api.jikan.moe/v4/anime/${streamID.value}/streaming`)
-    //   .then(response => response.json())
-    //   .then(data => {
-    //     streamLink.value = data.data[1].url
-    //     console.log(streamLink.value)
-    //   })
-    // }
+    const seasons = ref([])
 
     onBeforeMount(() => {
       fetch(`https://api.jikan.moe/v4/top/anime`)
-        .then(response => response.json())
-        .then(data => {
-          shows.value = data.data
-          console.log(shows.value)
-          const malIds = shows.value.map(show => show.mal_id);
-          streamID.value = malIds;
-        });
-    });
-    
-    const goWatch = () => {
-      fetch(`https://api.jikan.moe/v4/anime/${streamID.value}/streaming`)
-        .then(response => response.json())
-        .then(data => {
-          const streamingService = 'Crunchyroll'; // replace with the desired service
-          const streamData = data.data.find(service => service.service === streamingService);
-          if (streamData) {
-            streamLink.value = streamData.url;
-            console.log(streamLink.value);
-          } else {
-            console.log(`Streaming link not found for ${streamingService}`);
-          }
-        });
-    };
-    
+      .then(response => response.json())
+      .then(data => {
+        shows.value = data.data
+        // console.log(shows.value)
+      })
+      fetch(`https://api.jikan.moe/v4/seasons/upcoming`)
+      .then(response => response.json())
+      .then(data => {
+        seasons.value = data.data
+        // console.log(seasons.value)
+      })
+    })
 
+    
     return {
       shows,
       randoms,
-      goWatch,
-      streamID,
-      streamLink
+      seasons
     }
   }
 }
@@ -106,16 +77,17 @@ export default {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 
 }
 .topAnime h2 {
   padding: 5px 10px;
-  margin-top: 10px;
-  background-color: #000;
-  color: #fff;
+  margin-top: 20px;
+  color: #333333;
   border-radius: 10px;
-  width: fit-content;
-  font-size: smaller;
+  font-size: 25px;
+  
 }
 .topAnimeSingles li {
   padding: 10px;
@@ -125,12 +97,26 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
 }
 .topAnimeSingles li img {
   width: 170px;
   height: 200px;
   object-fit: cover;
-  border-radius: 20px;
+  border-radius: 10px;
+}
+.topAnimeSingles li .info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
 }
 .topAnimeSingles h3 {
   max-width: 160px;
@@ -140,15 +126,12 @@ export default {
   -webkit-line-clamp: 2; /* number of lines to show */
           line-clamp: 2; 
   -webkit-box-orient: vertical;
+  color: #ffffff;
+  text-align: center;
 }
 .topAnimeSingles li h4 {
-  top: 10;
-  right: 10;
-  background: #000;
   color: #fff;
-  width: 100%;
   height: 40px;
-  z-index: 2;
   border-radius: 10px;
   margin: 5px 0;
   display: flex;
