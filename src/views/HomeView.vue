@@ -73,35 +73,36 @@ export default {
   flex-direction: column;
 }
 .topAnimeSingles {
-  max-width: 1200px;
+  max-width: 1400px;
+  
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-
 }
 .topAnime h2 {
   padding: 5px 10px;
   margin-top: 20px;
-  color: #333333;
+  color: #e2e2e2;
   border-radius: 10px;
   font-size: 25px;
-  
 }
 .topAnimeSingles li {
-  padding: 10px;
+  /* padding: 10px; */
   margin: 5px;
   list-style-type: none;
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
+  width: 180px;
+  height: 230px;
+  cursor: pointer;
 }
 .topAnimeSingles li img {
-  width: 170px;
-  height: 200px;
+  width: 180px;
+  height: 230px;
   object-fit: cover;
   border-radius: 10px;
 }
@@ -117,6 +118,7 @@ export default {
   background-image: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
+  height: 150px;
 }
 .topAnimeSingles h3 {
   max-width: 160px;
@@ -128,6 +130,7 @@ export default {
   -webkit-box-orient: vertical;
   color: #ffffff;
   text-align: center;
+  margin-top: 20px;
 }
 .topAnimeSingles li h4 {
   color: #fff;

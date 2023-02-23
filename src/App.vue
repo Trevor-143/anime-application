@@ -85,11 +85,11 @@ header {
   position: relative;
 }
 #app {
-  background: #eeeeee;
+  background: #000000;
 }
 .top {
   position: relative;
-  max-width: 1200px;
+  max-width: 1400px;
   width: 100%;
   display: flex;
   align-items: center;
