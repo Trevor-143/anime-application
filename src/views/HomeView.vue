@@ -4,11 +4,13 @@
       <h2>Top Anime</h2>
       <ul class="topAnimeSingles">
         <li v-for="anime in shows" :key="anime.mal_id">
-          <img :src="anime.images.webp.image_url" :alt="anime.title">
-          <div class="info">
-            <h3>{{ anime.title }}</h3>
-            <h4>{{ anime.score }}</h4>
-          </div>
+          <router-link :to="'/anime/' + anime.mal_id">
+            <img :src="anime.images.webp.image_url" :alt="anime.title">
+            <div class="info">
+              <h3>{{ anime.title }}</h3>
+              <h4>{{ anime.score }}</h4>
+            </div>
+          </router-link>
         </li>
       </ul>
     </div>
@@ -16,11 +18,13 @@
       <h2>Upcoming Anime Seasons</h2>
       <ul class="topAnimeSingles">
         <li v-for="anime in seasons" :key="anime.mal_id">
-          <img :src="anime.images.webp.image_url" :alt="anime.title">
-          <div class="info">
-            <h3>{{ anime.title }}</h3>
-            <h4>{{ anime.score }}</h4>
-          </div>
+          <router-link :to="'/anime/' + anime.mal_id">
+            <img :src="anime.images.webp.image_url" :alt="anime.title">
+            <div class="info">
+              <h3>{{ anime.title }}</h3>
+              <h4>{{ anime.score }}</h4>
+            </div>
+          </router-link>
         </li>
       </ul>
     </div>
@@ -44,6 +48,7 @@ export default {
         shows.value = data.data
         // console.log(shows.value)
       })
+
       fetch(`https://api.jikan.moe/v4/seasons/upcoming`)
       .then(response => response.json())
       .then(data => {

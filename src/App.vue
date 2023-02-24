@@ -26,7 +26,11 @@
       </li>
     </ul>
   </div>
+  <router-link to="/" class="backHome">
+    <p >Home</p>
+  </router-link>
   <router-view/>
+  
   <MainFooter />
 </template>
 
@@ -127,17 +131,21 @@ form {
   display: flex;
   flex-direction: row;
   align-items: center;
-  background: #fff;
+  background: #000000;
   padding: 10px;
   padding-left: 25px;
   border-radius: 99px;
-  color: #000000;
+  color: #ffffff;
   width: 70%;
 }
 form input {
   background: none;
   border: none;
   width: 100%;
+  color: #ffffff;
+}
+form input::placeholder {
+  color: #949494ff;
 }
 
 form input:focus {
@@ -157,5 +165,27 @@ form button {
 form button:hover {
   color: #000000;
   background: #fff;
+}
+.backHome {
+  position: fixed;
+  /* bottom: 10; */
+  
+  background: #000;
+  color: #fff;
+  border-radius: 10px;
+  text-decoration: none;
+  z-index: 2;
+  border: 1px solid rgba(255, 255, 255, 0);
+  transition: 0.4s;
+
+}
+.backHome:hover {
+  border: 1px solid rgba(255, 255, 255, 1);
+  margin-left: 20px;
+}
+.backHome p {
+  padding: 7px 12px;
+  margin-left: 10px;
+  transition: 0.4s;
 }
 </style>
